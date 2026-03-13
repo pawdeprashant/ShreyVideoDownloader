@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ShreyVideoDownloader - Universal Video Downloader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="ShreyVideoDownloader - A modern universal video downloader using yt-dlp."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-root">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo-wrap">
+          <div class="brand-logo-glow">
+            <img
+              src="logo-shrey.png"
+              alt="Shrey logo"
+              class="brand-logo"
+              width="60"
+              height="60"
+            />
+          </div>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">Shrey</div>
+          <div class="brand-subtitle">Video Downloader · Fast • Private • Universal</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="card input-card">
+        <h1 class="panel-title">Download videos in clicks</h1>
+        <p class="subtitle">Paste a video URL and get available qualities instantly.</p>
+
+        <form id="analyze-form" class="url-form">
+          <label for="video-url" class="sr-only">Video URL</label>
+          <div class="url-input-row">
+            <input
+              type="url"
+              id="video-url"
+              name="video-url"
+              placeholder="Paste video URL (YouTube / Instagram / Twitter / Facebook)"
+              required
+            />
+            <button type="submit" id="analyze-btn">
+              <span class="btn-label">Analyze</span>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+
+        <div class="platform-row" aria-label="Supported platforms">
+          <span class="platform-icon" title="YouTube" aria-label="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+          </span>
+          <span class="platform-icon" title="Instagram" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </span>
+          <span class="platform-icon" title="Twitter / X" aria-label="Twitter / X">
+            <i class="fa-brands fa-x-twitter"></i>
+          </span>
+          <span class="platform-icon" title="Facebook" aria-label="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </span>
+          <span class="platform-note">Supported platforms</span>
+        </div>
+
+        <div class="detected" id="detected-platform" aria-live="polite" hidden>
+          Detected Platform: <span class="detected-value" id="detected-platform-value"></span>
+        </div>
+      </section>
+
+      <section class="card results-card" id="results-card" hidden>
+        <div class="video-meta">
+          <div class="thumbnail-wrap">
+            <img id="video-thumbnail" alt="Video thumbnail" style="display: none;" />
+            <div class="thumb-placeholder" id="thumb-placeholder" aria-hidden="true">
+              <div class="thumb-icon"></div>
+              <div class="thumb-text">Thumbnail preview</div>
+            </div>
+          </div>
+          <div class="meta-text">
+            <h2 id="video-title"></h2>
+            <p id="video-duration" class="muted"></p>
+          </div>
+        </div>
+
+        <div class="formats-section">
+          <h3>Available formats</h3>
+          <div id="formats-list" class="formats-list"></div>
+        </div>
+
+        <div class="download-actions">
+          <button id="download-btn" disabled>
+            <span class="btn-label">Download</span>
+            <span class="btn-spinner" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="progress-container" id="progress-container" hidden>
+          <div class="progress-label">
+            <span id="progress-text">Preparing download…</span>
+            <span id="progress-percent"></span>
+          </div>
+          <div class="progress-track">
+            <div id="progress-bar"></div>
+          </div>
+          <div class="progress-meta" id="progress-meta" hidden>
+            <span id="progress-meta-percent">0%</span>
+            <span class="dot">•</span>
+            <span id="progress-meta-speed">0 MB/s</span>
+            <span class="dot">•</span>
+            <span id="progress-meta-eta">ETA --:--</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div>Built with yt-dlp • ShreyVideoDownloader</div>
+      <div class="footer-muted">For educational use only. Respect platform terms of service.</div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

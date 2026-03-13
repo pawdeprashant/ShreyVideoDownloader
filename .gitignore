@@ -1,0 +1,8 @@
+node_modules
+downloads
+*.mp4
+*.mkv
+*.webm
+.env
+temp
+
