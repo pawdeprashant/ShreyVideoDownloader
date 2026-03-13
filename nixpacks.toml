@@ -1,0 +1,6 @@
+[phases.setup]
+aptPkgs = ["python3", "python3-pip", "ffmpeg"]
+
+[phases.install]
+cmds = ["pip3 install -U yt-dlp"]
+
