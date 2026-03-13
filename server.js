@@ -4,11 +4,11 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 
-// yt-dlp binary: prefer env overrides, fall back to 'yt-dlp' (works in Docker/Linux)
+// yt-dlp runner: prefer env overrides, fall back to python3 module (works on Railway/Docker)
 const YTDLP_BIN =
   process.env.YTDLP_PATH ||
   process.env.YTDLP_BIN ||
-  "yt-dlp";
+  "python3";
 
 // Help yt-dlp YouTube extractor by enabling a JS runtime.
 // Use `node` from PATH to avoid Windows path/space parsing issues.
@@ -51,6 +51,8 @@ app.post("/analyze", (req, res) => {
   }
 
   const args = [
+    "-m",
+    "yt_dlp",
     "--skip-download",
     "--no-playlist",
     "--js-runtimes",
