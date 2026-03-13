@@ -4,10 +4,11 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 
-// Use user-specific yt-dlp path by default, allow override via env (YTDLP_PATH)
+// yt-dlp binary: prefer env overrides, fall back to 'yt-dlp' (works in Docker/Linux)
 const YTDLP_BIN =
   process.env.YTDLP_PATH ||
-  "C:\\ffmpeg-8.0.1-essentials_build\\bin\\yt-dlp.exe";
+  process.env.YTDLP_BIN ||
+  "yt-dlp";
 
 // Help yt-dlp YouTube extractor by enabling a JS runtime.
 // Use `node` from PATH to avoid Windows path/space parsing issues.
@@ -78,7 +79,9 @@ app.post("/analyze", (req, res) => {
   yt.on("error", (err) => {
     clearTimeout(timeoutId);
     console.error("yt-dlp analyze spawn error:", err);
-    return res.status(500).json({ error: "Failed to start yt-dlp process." });
+    if (!res.headersSent) {
+      return res.status(500).json({ error: "Failed to start yt-dlp process." });
+    }
   });
 
   yt.on("close", (code) => {
@@ -87,6 +90,10 @@ app.post("/analyze", (req, res) => {
     if (code !== 0) {
       const msg = stderr || `yt-dlp exited with code ${code}`;
       console.error("yt-dlp analyze error:", msg);
+
+      if (res.headersSent) {
+        return;
+      }
 
       if (msg.includes("is not recognized as an internal or external command")) {
         return res
