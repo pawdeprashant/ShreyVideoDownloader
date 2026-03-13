@@ -307,6 +307,8 @@ app.post("/download", (req, res) => {
           selector,
           "--js-runtimes",
           JS_RUNTIME_ARG,
+          "--ffmpeg-location",
+          "/usr/bin",
           "--merge-output-format",
           "mp4",
           "-o",
