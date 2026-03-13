@@ -291,6 +291,8 @@ app.post("/download", (req, res) => {
 
     const args = isMp3
       ? [
+          "-m",
+          "yt_dlp",
           "-f",
           "bestaudio",
           "--js-runtimes",
@@ -303,6 +305,8 @@ app.post("/download", (req, res) => {
           url
         ]
       : [
+          "-m",
+          "yt_dlp",
           "-f",
           selector,
           "--js-runtimes",
